@@ -1,6 +1,9 @@
 
 <?php
 
+error_reporting(E_ALL);
+ini_set('display_errors', 'On');
+
 
 include('middleware/cors.php');
 include('database/connection.php');
@@ -48,7 +51,7 @@ if( !isset( $data->password) || !isset($data->email) ){
 	$password = $data->password;
 	$email = $data->email;
 
-	$key = $_ENV['JWT_KEY'];
+	$key = $_SERVER['JWT_KEY'];
 
 
 
