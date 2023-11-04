@@ -9,8 +9,10 @@ require_once '../vendor/autoload.php';
 // $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
 // $dotenv->load();
 
-$dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/');
-$dotenv->load();
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__ );
+//$dotenv->load();
+$dotenv->safeLoad();
+
 
 
 
@@ -55,35 +57,8 @@ if( $_SERVER['APPLICATION_STATE']==="staging")
 
 
 
-/*
-
-	try {
-		$server = '54.72.9.173';
-		$database = 'passpointdashboard';
-		$username = 'passpoint';
-		$password = 'Pm7WE3#93dMd@12';
-	
-		$connection = new PDO("sqlsrv:server=$server;Database=$database", $username, $password);
-		$connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-		echo "Connection ".$connection;
-	} catch (PDOException $e) {
-		echo 'Connection failed: ' . $e->getMessage();
-	}
-
-	*/
 
 
-
-
-
-
-
-
-
-
-
-			
-			
 
 
 
