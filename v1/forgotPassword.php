@@ -73,7 +73,7 @@ if(  !isset($data->email) ||  empty($data->email)   ){
 				}
 			}',
 		CURLOPT_HTTPHEADER => array(
-			'X-Postmark-Server-Token: '.$_ENV['X_Postmark_Server_Token'],
+			'X-Postmark-Server-Token: '.$_SERVER['X_Postmark_Server_Token'],
 			'Content-Type: application/json'
 		),
 		));

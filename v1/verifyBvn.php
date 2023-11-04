@@ -70,7 +70,7 @@ if(  !isset($data->bvn) ){
 					'x-merchant-id: '.$merchantId,
 					'apikey: '.$apiKey,
 					'Content-Type: application/json',
-					'Authorization: Basic '.$_ENV['BAISC_AUTH']
+					'Authorization: Basic '.$_SERVER['BAISC_AUTH']
 				  ),
 				));
 				

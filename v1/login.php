@@ -48,7 +48,7 @@ if( !isset( $data->password) || !isset($data->email) ){
 	$password = $data->password;
 	$email = $data->email;
 
-	$key = $_ENV['JWT_KEY'];
+	$key = $_SERVER['JWT_KEY'];
 
 
 
