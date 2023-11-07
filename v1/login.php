@@ -101,14 +101,25 @@ if( !isset( $data->password) || !isset($data->email) ){
 
 				
 
-						//log the users info
-
+						//log the users info & status
 						if($row['status'] ==1){ $is_active = true;}else{ $is_active = false; }
 
 
+						//public profile account
 						$profileid = getPublicProfileId($mysqli , $row['id']);
 
-						if(is_numeric($profileid)){  $hasPublicProfile = true; }else{ $hasPublicProfile = false; }
+						if(is_numeric($profileid)){ $hasPublicProfile = true; }else{ $hasPublicProfile = false; }
+
+						//kyc status
+
+						$kyc = getKycDetails($mysqli, $id);
+
+
+					if($result['p_exists']){ 
+						
+						$kycStatus = true; 
+					
+					}else{ $kycStatus = false; }	
 
 						
 						$title = "Recent sign in to your account";
@@ -141,6 +152,8 @@ if( !isset( $data->password) || !isset($data->email) ){
 								'hasPublicProfile' => $hasPublicProfile,
 							
 								'isActive' => $is_active, 
+
+								'kycStatus' => $row['kycStatus'],
 							
 
 								"refresh_token"=> null,
@@ -188,14 +201,13 @@ if( !isset( $data->password) || !isset($data->email) ){
 	
 									'dateOnboarded'=>$row['date_created'], 
 								
-								
 									'userType' => $row['userType'],
 
 									'regStage' => $row['regStage'],
 
+									'kycStatus' => $row['kycStatus'],
 
 									'hasPublicProfile' => $hasPublicProfile,
-
 								
 									'isActive' => $is_active, 
 								
