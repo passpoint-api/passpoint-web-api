@@ -1,8 +1,8 @@
 
 <?php
 
-error_reporting(E_ALL);
-ini_set('display_errors', 'On');
+// error_reporting(E_ALL);
+// ini_set('display_errors', 'On');
 
 
 include('middleware/cors.php');
@@ -112,14 +112,14 @@ if( !isset( $data->password) || !isset($data->email) ){
 
 						//kyc status
 
-						$kyc = getKycDetails($mysqli, $id);
+					// 	$kyc = getKycDetails($mysqli, $id);
 
 
-					if($result['p_exists']){ 
+					// if($result['p_exists']){ 
 						
-						$kycStatus = true; 
+					// 	$kycStatus = true; 
 					
-					}else{ $kycStatus = false; }	
+					// }else{ $kycStatus = false; }	
 
 						
 						$title = "Recent sign in to your account";
