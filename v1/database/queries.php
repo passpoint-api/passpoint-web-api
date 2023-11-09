@@ -2673,5 +2673,118 @@ function createActivity($mysqli, $userid, $title){
 }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+function getUnapprovedUsers($mysqli) {
+   
+    $query = "SELECT * FROM `users` WHERE kycStatus=?";
+    
+    // Prepare the statement
+    $stmt = $mysqli->prepare($query);
+    
+    if ($stmt) {
+        $kycStatus = 0;
+        // Bind the parameters
+        $stmt->bind_param("s", $kycStatus);
+
+        // Execute the statement
+        if ($stmt->execute()) {
+            // Get the result set
+            $result = $stmt->get_result();
+            
+            // Fetch the rows and store them in an array
+            $profileData = [];
+            while ($row = $result->fetch_assoc()) {
+                $profileData[] = $row;
+            }
+
+            $stmt->close();
+
+            if (!empty($profileData)) {
+                // User exists, return the profile data array
+                return [
+                    'p_exists' => true,
+                    'p_data' => $profileData,
+                ];
+            } else {
+                // User not found
+                return [
+                    'p_exists' => false,
+                    'p_data' => null,
+                    'error' => 'User not found in the database.'
+                ];
+            }
+        } else {
+            // Query execution failed
+            return [
+                'p_exists' => false,
+                'p_data' => null,
+                'error' => 'Query execution failed: ' . mysqli_error($mysqli)
+            ];
+        }
+    } else {
+        // Statement preparation failed
+        return [
+            'p_exists' => false,
+            'p_data' => null,
+            'error' => 'Statement preparation failed: ' . mysqli_error($mysqli)
+        ];
+    }
+
+}
+
+
+
+
+
+
+
+function updateKycStatus($mysqli, $userId) {
+
+    $query = "UPDATE `users` SET `kycStatus`=? WHERE id=?";
+
+	// Prepare the statement
+	$stmt = $mysqli->prepare($query);
+
+	if ($stmt) {
+		$kycStatus = 1;
+		// Bind the parameters
+		$stmt->bind_param("ss",  $kycStatus, $userId);
+
+		// Execute the statement
+		if ($stmt->execute()){
+			$stmt->close();
+			// Insertion was successful
+			// You can add your success handling here
+			return true;
+		} else { 
+			$stmt->close();
+			// Insertion failed
+			// You can add your error handling here
+			return false;
+		}
+		// Close the statement
+	
+	} else {
+		$stmt->close();
+		// Statement preparation failed
+		// You can add your error handling here
+		return false;
+	}
+
+
+}
+
+
 	
 ?>
