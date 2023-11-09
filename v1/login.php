@@ -117,7 +117,9 @@ if( !isset( $data->password) || !isset($data->email) ){
 
 					// if($result['p_exists']){ 
 						
-					// 	$kycStatus = true; 
+					
+				
+					if($row['kycStatus'] ==1){ $kycStatus = true;}else{ $kycStatus = false; }
 					
 					// }else{ $kycStatus = false; }	
 
@@ -153,7 +155,7 @@ if( !isset( $data->password) || !isset($data->email) ){
 							
 								'isActive' => $is_active, 
 
-								'kycStatus' => $row['kycStatus'],
+								'kycStatus' => $kycStatus,
 							
 
 								"refresh_token"=> null,
@@ -205,7 +207,7 @@ if( !isset( $data->password) || !isset($data->email) ){
 
 									'regStage' => $row['regStage'],
 
-									'kycStatus' => $row['kycStatus'],
+									'kycStatus' => $kycStatus,
 
 									'hasPublicProfile' => $hasPublicProfile,
 								
