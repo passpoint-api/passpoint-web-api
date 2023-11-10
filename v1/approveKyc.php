@@ -14,8 +14,7 @@ include('database/queries.php');
 
 
 
-	   $identity = array();
-	   $ownership = array();
+
 
 	   $json = file_get_contents('php://input');
 	   $data = json_decode($json);
@@ -44,7 +43,7 @@ include('database/queries.php');
 
 							header( 'Content-Type: application/json; charset=utf-8');
 							header('HTTP/1.0 200 Success');
-							$set=array('msg' => 'KYC Detials Ha', 'code'=>200, 'responseStatus'=>"00", 'status'=>1);
+							$set=array('msg' => 'KYC Details Approved', 'code'=>200, 'responseStatus'=>"00", 'status'=>1);
 				
 							$msg = json_encode($set);
 							echo $msg;
@@ -60,7 +59,7 @@ include('database/queries.php');
 
 				header( 'Content-Type: application/json; charset=utf-8');
 				header('HTTP/1.0 400 Bad Request');
-				$set = ['message' => "Error Retriving Kyc Info. ".$e->getMessage(), 'code' => 400, 'responseStatus' => '40', 'status' => 0];
+				$set = ['message' => "Error Approving Kyc Info. ".$e->getMessage(), 'code' => 400, 'responseStatus' => '40', 'status' => 0];
 
 				$msg = json_encode($set);
 				echo $msg;
