@@ -18,7 +18,7 @@ if(isset($headers['Authorization']) || isset($headers['authorization'])) {
     if (preg_match("/^Bearer\s/", $bearer_token)) {
         $bearer_token = str_replace("Bearer ", "", $bearer_token);
 
-        $key = $_ENV['JWT_KEY'];
+        $key = $_SERVER['JWT_KEY'];
 
         $json = file_get_contents('php://input');
         $data = json_decode($json);

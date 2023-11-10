@@ -30,18 +30,15 @@ include('database/queries.php');
 		try{
 
 
-			$result = updateKycStatus($mysqli, $userId);
+			
 
 
-			if($result['p_exists']){
+			if(updateKycStatus($mysqli, $userId)){
 
-				$row = $result['p_data'];
+
 
 
 				
-
-			
-		
 
 
 
