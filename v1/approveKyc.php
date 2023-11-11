@@ -36,11 +36,6 @@ include('database/queries.php');
 
 
 
-
-				
-
-
-
 							header( 'Content-Type: application/json; charset=utf-8');
 							header('HTTP/1.0 200 Success');
 							$set=array('msg' => 'KYC Details Approved', 'code'=>200, 'responseStatus'=>"00", 'status'=>1);
@@ -86,7 +81,7 @@ include('database/queries.php');
 
 		header('Content-Type: application/json; charset=utf-8');
 		header('HTTP/1.0 400 Bad Request');
-		$set = ['message' => "Error Getting Kyc info. ".$e->getMessage(), 'code' => 400, 'responseStatus' => '40', 'status' => 0];
+		$set = ['message' => "Error Approving Kyc info. ".$e->getMessage(), 'code' => 400, 'responseStatus' => '40', 'status' => 0];
 		$msg = json_encode($set);
 		echo $msg;
 		exit;
