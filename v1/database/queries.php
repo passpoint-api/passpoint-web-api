@@ -2749,7 +2749,7 @@ function getUnapprovedUsers($mysqli) {
 
 
 
-function updateKycStatus($mysqli, $userId) {
+function updateKycStatus($mysqli, $userId, $kycStatus) {
 
     $query = "UPDATE `users` SET `kycStatus`=? WHERE id=?";
 
@@ -2757,7 +2757,6 @@ function updateKycStatus($mysqli, $userId) {
 	$stmt = $mysqli->prepare($query);
 
 	if ($stmt) {
-		$kycStatus = 1;
 		// Bind the parameters
 		$stmt->bind_param("ss",  $kycStatus, $userId);
 
@@ -2784,6 +2783,171 @@ function updateKycStatus($mysqli, $userId) {
 
 
 }
+
+
+
+
+
+
+
+function getTotalUsers($mysqli) {
+    $query = "SELECT COUNT(*) FROM `users`";
+
+    // Prepare the statement
+    $stmt = $mysqli->prepare($query);
+
+    if ($stmt) {
+        // Execute the statement
+      
+
+        if ($stmt->execute()) {
+            $userCount = null;
+            // Bind the result variable
+            $stmt->bind_result($userCount);
+
+            // Fetch the result
+            $stmt->fetch();
+
+            // Close the statement
+            $stmt->close();
+
+            // Return the count of users
+            return $userCount;
+        } else {
+            $stmt->close();
+            // Execution failed
+            // You can add your error handling here
+            return false;
+        }
+    } else {
+        // Statement preparation failed
+        // You can add your error handling here
+        return false;
+    }
+}
+
+
+
+
+function getApprovedUsers($mysqli) {
+    $query = "SELECT COUNT(*) FROM `users` WHERE kycStatus=?";
+
+    // Prepare the statement
+    $stmt = $mysqli->prepare($query);
+
+    if ($stmt) {
+        // Execute the statement
+        $kycStatus =1;
+        $stmt->bind_param("s",  $kycStatus);
+        if ($stmt->execute()) {
+            $userCount = null;
+            // Bind the result variable
+            $stmt->bind_result($userCount);
+
+            // Fetch the result
+            $stmt->fetch();
+
+            // Close the statement
+            $stmt->close();
+
+            // Return the count of users
+            return $userCount;
+        } else {
+            $stmt->close();
+            // Execution failed
+            // You can add your error handling here
+            return false;
+        }
+    } else {
+        // Statement preparation failed
+        // You can add your error handling here
+        return false;
+    }
+}
+
+
+
+
+
+function getPendingUsers($mysqli) {
+    $query = "SELECT COUNT(*) FROM `users` WHERE kycStatus=?";
+
+    // Prepare the statement
+    $stmt = $mysqli->prepare($query);
+
+    if ($stmt) {
+        // Execute the statement
+        $kycStatus =0;
+        $stmt->bind_param("s",  $kycStatus);
+        if ($stmt->execute()) {
+            $userCount = null;
+            // Bind the result variable
+            $stmt->bind_result($userCount);
+
+            // Fetch the result
+            $stmt->fetch();
+
+            // Close the statement
+            $stmt->close();
+
+            // Return the count of users
+            return $userCount;
+        } else {
+            $stmt->close();
+            // Execution failed
+            // You can add your error handling here
+            return false;
+        }
+    } else {
+        // Statement preparation failed
+        // You can add your error handling here
+        return false;
+    }
+}
+
+
+
+
+
+
+
+function getRejectUsers($mysqli) {
+    $query = "SELECT COUNT(*) FROM `users` WHERE kycStatus=?";
+
+    // Prepare the statement
+    $stmt = $mysqli->prepare($query);
+
+    if ($stmt) {
+        // Execute the statement
+        $kycStatus =2;
+        $stmt->bind_param("s",  $kycStatus);
+        if ($stmt->execute()) {
+            $userCount = null;
+            // Bind the result variable
+            $stmt->bind_result($userCount);
+
+            // Fetch the result
+            $stmt->fetch();
+
+            // Close the statement
+            $stmt->close();
+
+            // Return the count of users
+            return $userCount;
+        } else {
+            $stmt->close();
+            // Execution failed
+            // You can add your error handling here
+            return false;
+        }
+    } else {
+        // Statement preparation failed
+        // You can add your error handling here
+        return false;
+    }
+}
+
+
 
 
 	

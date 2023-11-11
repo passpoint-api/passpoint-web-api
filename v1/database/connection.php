@@ -29,6 +29,9 @@ if( $_SERVER['APPLICATION_STATE']==="staging")
 			DEFINE ('DB_PORT',  $_SERVER['STAGING_DB_PORT']);
 
 
+			DEFINE ('MERCHANT_URL',  $_SERVER['STAGING_MERCHANT_URL']);
+
+
 	
 		
 				
@@ -42,6 +45,9 @@ if( $_SERVER['APPLICATION_STATE']==="staging")
 				 DEFINE ('DB_HOST',  $_SERVER['LIVE_DB_HOST']); //host name depends on server
 				 DEFINE ('DB_NAME', $_SERVER['LIVE_DB_NAME']);
 				 DEFINE ('DB_PORT',  $_SERVER['LIVE_DB_PORT']);
+
+				 DEFINE ('MERCHANT_URL',  $_SERVER['LIVE_MERCHANT_URL']);
+
 			
 		
 		}

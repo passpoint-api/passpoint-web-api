@@ -103,7 +103,7 @@ if(  !isset($data->otp) || !isset($data->email) ||  empty($data->otp)   ){
 				$curl = curl_init();
 
 				curl_setopt_array($curl, array(
-				CURLOPT_URL => 'https://client-sandbox.mypasspoint.com/passpoint-usr/v1/merchant-app/create-merchant',
+				CURLOPT_URL => MERCHANT_URL,
 				CURLOPT_RETURNTRANSFER => true,
 				CURLOPT_ENCODING => '',
 				CURLOPT_MAXREDIRS => 10,
