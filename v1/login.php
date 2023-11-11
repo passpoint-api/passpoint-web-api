@@ -119,7 +119,7 @@ if( !isset( $data->password) || !isset($data->email) ){
 						
 					
 					//1=approved, 2=Rejected, 0=pending, 
-					if($row['kycStatus'] ==1){ $kycStatus = "Approved";}elseif($row['kycStatus'] ==2){ $kycStatus = "Rejected"; }elseif($row['kycStatus'] ==0){ $kycStatus = "Pending"; }
+					if($row['kycStatus'] ==1){ $kycStatus = "Approved";}elseif($row['kycStatus'] ==2){ $kycStatus = "Rejected"; }elseif($row['kycStatus'] ==0 and !getKycDetails($mysqli, $row['id'])['p_exists']){ $kycStatus = "Pending"; }elseif($row['kycStatus'] ==0 and getKycDetails($mysqli, $row['id'])['p_exists']){ $kycStatus = "inReview"; }
 					
 					// }else{ $kycStatus = false; }	
 
