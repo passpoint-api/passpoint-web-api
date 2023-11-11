@@ -2749,7 +2749,7 @@ function getUnapprovedUsers($mysqli) {
 
 
 
-function updateKycStatus($mysqli, $userId) {
+function updateKycStatus($mysqli, $userId, $kycStatus) {
 
     $query = "UPDATE `users` SET `kycStatus`=? WHERE id=?";
 
@@ -2757,7 +2757,6 @@ function updateKycStatus($mysqli, $userId) {
 	$stmt = $mysqli->prepare($query);
 
 	if ($stmt) {
-		$kycStatus = 1;
 		// Bind the parameters
 		$stmt->bind_param("ss",  $kycStatus, $userId);
 
