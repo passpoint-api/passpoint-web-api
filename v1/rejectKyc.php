@@ -30,7 +30,7 @@ include('database/queries.php');
 
 
 			
-            $kycStatus =1;
+            $kycStatus =3;
 
 			if(updateKycStatus($mysqli, $userId, $kycStatus)){
 
@@ -38,7 +38,7 @@ include('database/queries.php');
 
 							header( 'Content-Type: application/json; charset=utf-8');
 							header('HTTP/1.0 200 Success');
-							$set=array('msg' => 'KYC Details Approved', 'code'=>200, 'responseStatus'=>"00", 'status'=>1);
+							$set=array('msg' => 'KYC Details Rejected', 'code'=>200, 'responseStatus'=>"00", 'status'=>1);
 				
 							$msg = json_encode($set);
 							echo $msg;

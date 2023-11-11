@@ -118,8 +118,8 @@ if( !isset( $data->password) || !isset($data->email) ){
 					// if($result['p_exists']){ 
 						
 					
-				
-					if($row['kycStatus'] ==1){ $kycStatus = true;}else{ $kycStatus = false; }
+					//1=approved, 2=Rejected, 0=pending, 
+					if($row['kycStatus'] ==1){ $kycStatus = "Approved";}elseif($row['kycStatus'] ==2){ $kycStatus = "Rejected"; }elseif($row['kycStatus'] ==0){ $kycStatus = "Pending"; }
 					
 					// }else{ $kycStatus = false; }	
 
