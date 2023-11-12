@@ -30,7 +30,7 @@ include('database/queries.php');
 
 
 			
-            $kycStatus =3;
+            $kycStatus =2;
 
 			if(updateKycStatus($mysqli, $userId, $kycStatus)){
 
