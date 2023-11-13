@@ -1,5 +1,8 @@
 <?php
 
+ error_reporting(E_ALL);
+ ini_set('display_errors', 'On');
+
 include('middleware/cors.php');
 include('database/connection.php');
 include('database/queries.php');
