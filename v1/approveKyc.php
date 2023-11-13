@@ -34,7 +34,11 @@ include('database/queries.php');
 
 			if(updateKycStatus($mysqli, $userId, $kycStatus)){
 
-				$result = LoginUser($mysqli, $email);
+				$result = GetUserDetails($mysqli, $userId)['user_data'];
+
+				$email = $result['email'];
+				$firstName = $result['firstname'];
+
 
 
 
