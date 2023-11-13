@@ -131,7 +131,7 @@ if( !isset($data->email) || empty($data->businessIndustry) ||  !isset($data->bus
 				header( 'Content-Type: application/json; charset=utf-8');
 				header('HTTP/1.0 400 Bad Request');
 	 
-				$set=array('responseStatus'=>"40", 'message' => "User Already Exist, Please Re-Confirm",'code'=>400,'status'=>0);
+				$set=array('responseStatus'=>"40", 'message' => "User Email Does Not Exist, Please Re-Confirm",'code'=>400,'status'=>0);
 		
 				$msg = json_encode($set);
 				echo $msg;
