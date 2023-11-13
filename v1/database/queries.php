@@ -3065,5 +3065,63 @@ function checkPhoneNumber($mysqli, $phone){
 }
 
 
+
+
+
+function GetUserDetails($mysqli, $id)
+{
+    $query = "SELECT * FROM `users` WHERE id=?";
+    
+    // Prepare the statement
+    $stmt = $mysqli->prepare($query);
+    
+    if ($stmt) {
+        // Bind the parameters
+        $stmt->bind_param("s", $id);
+
+        // Execute the statement
+        if ($stmt->execute()) {
+            // Get the result set as an associative array
+            $result = $stmt->get_result();
+            
+            // Fetch the user data as an associative array
+            $user_data = $result->fetch_assoc();
+
+            $stmt->close();
+            
+            if ($user_data) {
+                // User exists
+                return [
+                    'user_exists' => true,
+                    'user_data' => $user_data,
+                ];
+            } else {
+                // User not found
+                return [
+                    'user_exists' => false,
+                    'user_data' => null,
+                    'error' => 'User not found in the database.'
+                ];
+            }
+        } else {
+            // Query execution failed
+            return [
+                'user_exists' => false,
+                'user_data' => null,
+                'error' => 'Query execution failed: ' . mysqli_error($mysqli)
+            ];
+        }
+    } else {
+        // Statement preparation failed
+        return [
+            'user_exists' => false,
+            'user_data' => null,
+            'error' => 'Statement preparation failed: ' . mysqli_error($mysqli)
+        ];
+    }
+}
+
+
+
 	
 ?>
