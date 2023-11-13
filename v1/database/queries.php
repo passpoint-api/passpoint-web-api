@@ -2950,5 +2950,120 @@ function getRejectUsers($mysqli) {
 
 
 
+function checkBussinesName($mysqli, $bussinessName) {
+    $query = "SELECT COUNT(*) FROM `users` WHERE bussinesName=?";
+
+    // Prepare the statement
+    $stmt = $mysqli->prepare($query);
+
+    if ($stmt) {
+        // Execute the statement
+        $stmt->bind_param("s", $bussinessName);
+        if ($stmt->execute()) {
+            $userCount = null;
+
+            // Bind the result variable
+            $stmt->bind_result($userCount);
+
+            // Fetch the result
+            $stmt->fetch();
+
+            // Close the statement
+            $stmt->close();
+
+            // Return true if the business name count is zero, otherwise false
+            return $userCount === 0;
+        } else {
+            $stmt->close();
+            // Execution failed
+            // You can add your error handling here
+            return false;
+        }
+    } else {
+        // Statement preparation failed
+        // You can add your error handling here
+        return false;
+    }
+}
+
+
+
+
+function checkBussinesRegNumber($mysqli, $rcNumber){
+    $query = "SELECT COUNT(*) FROM `users` WHERE rcNumber=?";
+
+    // Prepare the statement
+    $stmt = $mysqli->prepare($query);
+
+    if ($stmt) {
+        // Execute the statement
+        $stmt->bind_param("s", $rcNumber);
+        if ($stmt->execute()) {
+            $userCount = null;
+
+            // Bind the result variable
+            $stmt->bind_result($userCount);
+
+            // Fetch the result
+            $stmt->fetch();
+
+            // Close the statement
+            $stmt->close();
+
+            // Return true if the business name count is zero, otherwise false
+            return $userCount === 0;
+        } else {
+            $stmt->close();
+            // Execution failed
+            // You can add your error handling here
+            return false;
+        }
+    } else {
+        // Statement preparation failed
+        // You can add your error handling here
+        return false;
+    }
+
+}
+
+
+function checkPhoneNumber($mysqli, $phone){
+    $query = "SELECT COUNT(*) FROM `users` WHERE phone=?";
+
+    // Prepare the statement
+    $stmt = $mysqli->prepare($query);
+
+    if ($stmt) {
+        // Execute the statement
+        $stmt->bind_param("s", $phone);
+        if ($stmt->execute()) {
+            $userCount = null;
+
+            // Bind the result variable
+            $stmt->bind_result($userCount);
+
+            // Fetch the result
+            $stmt->fetch();
+
+            // Close the statement
+            $stmt->close();
+
+            // Return true if the business name count is zero, otherwise false
+            return $userCount === 0;
+        } else {
+            $stmt->close();
+            // Execution failed
+            // You can add your error handling here
+            return false;
+        }
+    } else {
+        // Statement preparation failed
+        // You can add your error handling here
+        return false;
+    }
+
+}
+
+
 	
 ?>
