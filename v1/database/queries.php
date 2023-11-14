@@ -633,7 +633,7 @@ function CreateIndividualPersonalInfoQuery($mysqli, $firstName, $lastName,  $pho
 
 function CreateIndividualBussinesInfoQuery($mysqli, $businessName, $businessIndustry, $regStage, $email){
 
-	$query = "UPDATE `users` SET `businessIndustry`=?,  `bussinesName`=?, `regStage`=?    WHERE `email`=?";
+	$query = "UPDATE `users` SET `bussinesName`=?, `businessIndustry`=?, `regStage`=?    WHERE `email`=?";
 
 // Prepare the statement
 $stmt = $mysqli->prepare($query);
