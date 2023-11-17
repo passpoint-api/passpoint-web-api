@@ -227,7 +227,6 @@ if( !isset( $data->password) || !isset($data->email) ){
 							echo $msg;
 							exit;
 
-
 			}else{
 
 				header( 'Content-Type: application/json; charset=utf-8');

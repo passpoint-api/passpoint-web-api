@@ -55,6 +55,8 @@ if(  !isset($data->otp) || !isset($data->email) ||  empty($data->otp)   ){
 			if ( ValidateOtpQuery($mysqli, $email, $otp)){
 
 
+				try{
+
 
 
 				function generateApiKey()
@@ -128,12 +130,18 @@ if(  !isset($data->otp) || !isset($data->email) ||  empty($data->otp)   ){
 
 				$response = curl_exec($curl);
 
+
 				curl_close($curl);
 
 				$response = json_decode($response, true);	
 
-				$merchantId =$response['data']['merchantId'];
+				if($response['responseCode'] == '00'){
+
+				
+
+					$merchantId =$response['data']['merchantId'];
 	
+				
 
 
 
@@ -161,6 +169,30 @@ if(  !isset($data->otp) || !isset($data->email) ||  empty($data->otp)   ){
 
 
 				}
+
+			}else{
+
+				header('Content-Type: application/json; charset=utf-8');
+				header('HTTP/1.0 400 Bad Request');
+				$set = ['message' => $response['responseMessage'], 'code' => 400, 'responseStatus' => '40', 'status' => 0];
+				$msg = json_encode($set);
+				echo $msg;
+				exit;
+
+
+			}
+
+			}catch (Exception $e) {
+
+						
+
+				header('Content-Type: application/json; charset=utf-8');
+				header('HTTP/1.0 400 Bad Request');
+				$set = ['message' => "Error verifying Otp.", 'code' => 400, 'responseStatus' => '40', 'status' => 0];
+				$msg = json_encode($set);
+				echo $msg;
+				exit;
+			}
 
 
 
