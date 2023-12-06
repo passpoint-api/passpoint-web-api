@@ -3123,5 +3123,79 @@ function GetUserDetails($mysqli, $id)
 
 
 
+function Update2faDetails($mysqli, $id, $secret, $two_fa_link ){
+
+
+    $query = "UPDATE `users` SET `2faSecret`=?, `2faLink`=? WHERE id=?";
+
+	// Prepare the statement
+	$stmt = $mysqli->prepare($query);
+
+	if ($stmt) {
+		// Bind the parameters
+		$stmt->bind_param("sss",  $secret, $two_fa_link, $id);
+
+		// Execute the statement
+		if ($stmt->execute()){
+			$stmt->close();
+			// Insertion was successful
+			// You can add your success handling here
+			return true;
+		} else { 
+			$stmt->close();
+			// Insertion failed
+			// You can add your error handling here
+			return false;
+		}
+		// Close the statement
+	
+	} else {
+		$stmt->close();
+		// Statement preparation failed
+		// You can add your error handling here
+		return false;
+	}
+
+
+}
+
+
+function Update2faStatus($mysqli, $id, $status ){
+
+
+    $query = "UPDATE `users` SET `2fa`=? WHERE id=?";
+
+	// Prepare the statement
+	$stmt = $mysqli->prepare($query);
+
+	if ($stmt) {
+		// Bind the parameters
+		$stmt->bind_param("ss",  $status, $id);
+
+		// Execute the statement
+		if ($stmt->execute()){
+			$stmt->close();
+			// Insertion was successful
+			// You can add your success handling here
+			return true;
+		} else { 
+			$stmt->close();
+			// Insertion failed
+			// You can add your error handling here
+			return false;
+		}
+		// Close the statement
+	
+	} else {
+		$stmt->close();
+		// Statement preparation failed
+		// You can add your error handling here
+		return false;
+	}
+
+
+}
+
+
 	
 ?>

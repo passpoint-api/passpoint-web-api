@@ -60,6 +60,8 @@ include('database/queries.php');
 					
 					// }else{ $kycStatus = false; }	
 
+					if($row['2fa'] ==1){ $is_2fa = true;}else{ $is_2fa = false; }
+
 					
 		 
 							$set=array(
@@ -96,6 +98,8 @@ include('database/queries.php');
 									'hasPublicProfile' => $hasPublicProfile,
 								
 									'isActive' => $is_active, 
+
+									'is2faEnable' => $is_2fa,
 								
 									'profileImg'=>null, 
 								
