@@ -128,9 +128,6 @@ if( !isset( $data->password) || !isset($data->email) ){
 						$userid = $row['id'];
 						createActivity($mysqli, $userid, $title);
 
-
-						if($row['2fa'] ==1){ $is_2fa = true;}else{ $is_2fa = false; }
-
 					
 						
 							$payload=[
@@ -159,8 +156,6 @@ if( !isset( $data->password) || !isset($data->email) ){
 								'isActive' => $is_active, 
 
 								'kycStatus' => $kycStatus,
-
-								'is2faEnable' => $is_2fa,
 							
 
 								"refresh_token"=> null,
@@ -217,8 +212,6 @@ if( !isset( $data->password) || !isset($data->email) ){
 									'hasPublicProfile' => $hasPublicProfile,
 								
 									'isActive' => $is_active, 
-									
-									'is2faEnable' => $is_2fa,
 								
 									'profileImg'=>null, 
 								
