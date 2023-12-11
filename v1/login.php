@@ -129,7 +129,45 @@ if( !isset( $data->password) || !isset($data->email) ){
 						createActivity($mysqli, $userid, $title);
 
 
-						if($row['2fa'] ==1){ $is_2fa = true;}else{ $is_2fa = false; }
+						if($row['2fa'] ==1){ 
+							
+
+							function encryptData($data, $key, $method = 'aes-256-cbc') {
+								$iv = openssl_random_pseudo_bytes(openssl_cipher_iv_length($method));
+								$encrypted = openssl_encrypt($data, $method, $key, 0, $iv);
+								return base64_encode($iv . $encrypted);
+							}
+							
+							
+							$is_2fa = true;
+
+							$encrptyData = $row['email']."::".$row['id'];
+
+							header( 'Content-Type: application/json; charset=utf-8');
+							header('HTTP/1.0 200 Success');
+
+						
+							$set=array(
+
+								'responseStatus'=>"00",
+
+								'mesg'=>"Proceed to validate otp.",
+
+								'token' =>encryptData($encrptyData, $key),
+
+							);
+				 
+							$msg = json_encode($set);
+							echo $msg;
+							exit;
+						
+						}else{ 
+								
+								
+								$is_2fa = false; 
+							
+							
+						
 
 					
 						
@@ -233,6 +271,15 @@ if( !isset( $data->password) || !isset($data->email) ){
 							$msg = json_encode($set);
 							echo $msg;
 							exit;
+
+
+						}
+
+
+
+
+
+
 
 			}else{
 
