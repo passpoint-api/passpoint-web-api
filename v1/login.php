@@ -96,6 +96,9 @@ if( !isset( $data->password) || !isset($data->email) ){
 			//password_verify($password, $row['password']) 
 			// $crypt->verifyPasswordHash($password, $row['password'])
 
+		if($row['userType'] =="1" or $row['userType'] =="2"){
+
+
 
 			if(password_verify($password, $row['password'])){
 
@@ -293,6 +296,22 @@ if( !isset( $data->password) || !isset($data->email) ){
 			}
 
 
+
+		}else{
+			// throw error, since user is not an admin
+
+			header( 'Content-Type: application/json; charset=utf-8');
+			header('HTTP/1.0 400 Bad Request');
+ 
+			$set=array('message' => "Permission Denied. You do not have access", 'code'=>400,'responseStatus'=>"50");
+	
+			$msg = json_encode($set);
+			echo $msg;
+
+
+
+		}
+			
 					
 	
 
