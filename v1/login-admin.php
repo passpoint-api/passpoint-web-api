@@ -89,13 +89,14 @@ if( !isset( $data->password) || !isset($data->email) ){
 	//if num of rows is 0 user not found
   if ( $result['user_exists'] ){
 
-			
-	
-			$row =  $result['user_data'];
-			//compare use entry with encryted password
-			//password_verify($password, $row['password']) 
-			// $crypt->verifyPasswordHash($password, $row['password'])
 
+
+	$row =  $result['user_data'];
+	//compare use entry with encryted password
+	//password_verify($password, $row['password']) 
+	// $crypt->verifyPasswordHash($password, $row['password'])
+			
+	if($row['userType'] =="3"){
 
 			if(password_verify($password, $row['password'])){
 
@@ -239,6 +240,21 @@ if( !isset( $data->password) || !isset($data->email) ){
 			}
 
 
+
+		}else{
+			// throw error, since user is not an admin
+
+			header( 'Content-Type: application/json; charset=utf-8');
+			header('HTTP/1.0 400 Bad Request');
+ 
+			$set=array('message' => "Permission Denied. You do not have access", 'code'=>400,'responseStatus'=>"50");
+	
+			$msg = json_encode($set);
+			echo $msg;
+
+
+
+		}
 					
 	
 
