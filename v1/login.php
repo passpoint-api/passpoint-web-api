@@ -8,7 +8,7 @@
 include('middleware/cors.php');
 include('database/connection.php');
 include('database/queries.php');
- 
+include('middleware/constants.php');
 
 
 require_once 'firebase-php-jwt/src/BeforeValidException.php';
@@ -96,7 +96,7 @@ if( !isset( $data->password) || !isset($data->email) ){
 			//password_verify($password, $row['password']) 
 			// $crypt->verifyPasswordHash($password, $row['password'])
 
-		if($row['userType'] =="1" or $row['userType'] =="2"){
+		if($row['userType'] ==INDIVIDUAL_USER or $row['userType'] ==CO_OPERATE_USER){
 
 
 

@@ -2620,7 +2620,9 @@ function getActivities($mysqli, $id){
 
 function createActivity($mysqli, $userid, $title){
 
-	$query = "INSERT INTO `activity`(`title`, `formattted_date`, `userid`) VALUES(?, ?, ?)";
+    $ipAddress = $_SERVER['REMOTE_ADDR'];
+
+	$query = "INSERT INTO `activity`(`title`, `formattted_date`, `userid`, `ipAddress`) VALUES(?, ?, ?, ?)";
 
 
 	// Prepare the statement
@@ -2631,7 +2633,7 @@ function createActivity($mysqli, $userid, $title){
 		$date = date('d')."-".date('m')."-".date('Y').", ".date('h').":".date('i').date("a");;
 		
 		// Bind the parameters
-		$stmt->bind_param("sss",  $title, $date, $userid);
+		$stmt->bind_param("ssss",  $title, $date, $userid, $ipAddress);
 	
 		// Execute the statement
 		if ($stmt->execute()) {
@@ -3196,6 +3198,100 @@ function Update2faStatus($mysqli, $id, $status ){
 
 }
 
+
+
+
+
+
+
+
+function getPermission($mysqli){
+
+	$query = "SELECT * FROM team_permissions ";
+
+// Prepare the statement
+$stmt = $mysqli->prepare($query);
+
+if ($stmt) {
+	
+    // Bind the parameters
+
+    // Execute the statement
+    if ($stmt->execute()) {
+		$result = $stmt->get_result();
+
+		// Create an array to store the results
+		$services = array();
+
+		// Fetch the results
+		while ($row = $result->fetch_assoc()) {
+			// Add each row to the results array
+			$services[] = $row;
+		}
+
+		$stmt->close();
+		
+		// Return the array of services
+		return $services;
+    } else { 
+		$stmt->close();
+        // Insertion failed
+        // You can add your error handling here
+		return false;
+    }
+
+    // Close the statement
+   
+} else {
+	$stmt->close();
+    // Statement preparation failed
+    // You can add your error handling here
+	return false;
+}
+	
+	
+
+}
+
+
+
+
+function updatePasswordChangeStatus($mysqli, $status, $id){
+
+
+
+    $query = "UPDATE `users` SET `passwordChanged`=? WHERE id=?";
+
+	// Prepare the statement
+	$stmt = $mysqli->prepare($query);
+
+	if ($stmt) {
+		// Bind the parameters
+		$stmt->bind_param("ss",  $status, $id);
+
+		// Execute the statement
+		if ($stmt->execute()){
+			$stmt->close();
+			// Insertion was successful
+			// You can add your success handling here
+			return true;
+		} else { 
+			$stmt->close();
+			// Insertion failed
+			// You can add your error handling here
+			return false;
+		}
+		// Close the statement
+	
+	} else {
+		$stmt->close();
+		// Statement preparation failed
+		// You can add your error handling here
+		return false;
+	}
+
+
+}
 
 	
 ?>
