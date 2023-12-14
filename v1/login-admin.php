@@ -8,6 +8,7 @@
 include('middleware/cors.php');
 include('database/connection.php');
 include('database/queries.php');
+include('middleware/constants.php');
  
 
 
@@ -20,10 +21,6 @@ require_once 'firebase-php-jwt/src/JWT.php';
 use \Firebase\JWT\JWT;
 
 	//retive all the entry from front-end
-
-	
-
-
 
 	
 
@@ -90,13 +87,13 @@ if( !isset( $data->password) || !isset($data->email) ){
   if ( $result['user_exists'] ){
 
 
-
 	$row =  $result['user_data'];
 	//compare use entry with encryted password
 	//password_verify($password, $row['password']) 
 	// $crypt->verifyPasswordHash($password, $row['password'])
-			
-	if($row['userType'] =="3"){
+	
+	if($row['userType'] ==ADMIN_USER){
+
 
 			if(password_verify($password, $row['password'])){
 
@@ -109,20 +106,11 @@ if( !isset( $data->password) || !isset($data->email) ){
 						//public profile account
 						$profileid = getPublicProfileId($mysqli , $row['id']);
 
-						if(is_numeric($profileid)){ $hasPublicProfile = true; }else{ $hasPublicProfile = false; }
-
-						//kyc status
-
-					// 	$kyc = getKycDetails($mysqli, $id);
+					if(is_numeric($profileid)){ $hasPublicProfile = true; }else{ $hasPublicProfile = false; }
 
 
-					// if($result['p_exists']){ 
-						
-					
-					//1=approved, 2=Rejected, 0=pending, 
-					if($row['kycStatus'] ==1){ $kycStatus = "Approved";}elseif($row['kycStatus'] ==2){ $kycStatus = "Rejected"; }elseif($row['kycStatus'] ==0 and !getKycDetails($mysqli, $row['id'])['p_exists']){ $kycStatus = "Pending"; }elseif($row['kycStatus'] ==0 and getKycDetails($mysqli, $row['id'])['p_exists']){ $kycStatus = "inReview"; }
-					
-					// }else{ $kycStatus = false; }	
+					if($row['passwordChanged'] ==1){ $passwordChanged = true;}else{ $passwordChanged = false; }
+
 
 						
 						$title = "Recent sign in to your account";
@@ -137,27 +125,17 @@ if( !isset( $data->password) || !isset($data->email) ){
 								'lastName'=>$row['lastname'], 
 								'email'=> $row['email'], 
 								'phoneNumber'=>$row['phone'], 
-								'businessName'=>$row['bussinesName'], 
-								'rcNumber'=>$row['rcNumber'], 
-
-								'businessType'=>$row['businessType'], 
-								'businessIndustry'=>$row['businessIndustry'], 
-								'address'=>$row['address'], 
-
-								'merchantId'=>$row['merchant_id'], 
-								'apiKey'=>$row['api_key'], 
-
+								
 								'dateOnboarded'=>$row['date_created'], 
 							
 							
 								'userType' => $row['userType'],
-								'regStage' => $row['regStage'],
-								'hasPublicProfile' => $hasPublicProfile,
+								
 							
 								'isActive' => $is_active, 
 
-								'kycStatus' => $kycStatus,
-							
+								'passwordChanged'=> $passwordChanged,
+
 
 								"refresh_token"=> null,
 								"refresh_token_expires"=> null,
@@ -184,39 +162,23 @@ if( !isset( $data->password) || !isset($data->email) ){
 								'responseStatus'=>"00",
 
 								'data'=>[
-									
+
+									'id' => $row['id'], 
 									'firstName'=>$row['firstname'], 
 									'lastName'=>$row['lastname'], 
 									'email'=> $row['email'], 
 									'phoneNumber'=>$row['phone'], 
-									'businessName'=>$row['bussinesName'], 
-									'rcNumber'=>$row['rcNumber'], 
-	
-									'businessType'=>$row['businessType'], 
-									'businessIndustry'=>$row['businessIndustry'], 
-									'state'=>$row['state'], 
-									'lga'=>$row['lga'], 
-									'country'=>$row['country'], 
 									
-									'address'=>$row['address'], 
-
-									'merchantId'=>$row['merchant_id'], 
-	
 									'dateOnboarded'=>$row['date_created'], 
 								
 									'userType' => $row['userType'],
-
-									'regStage' => $row['regStage'],
-
-									'kycStatus' => $kycStatus,
-
-									'hasPublicProfile' => $hasPublicProfile,
 								
 									'isActive' => $is_active, 
-								
+
+									'passwordChanged'=> $passwordChanged,
+
 									'profileImg'=>null, 
 								
-						
 								
 								],
 

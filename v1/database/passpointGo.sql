@@ -259,10 +259,31 @@ CREATE TABLE `users` (
   `2fa` tinyint(1) NOT NULL DEFAULT '0',
   `2faSecret` varchar(55) DEFAULT NULL,
   `2faLink` varchar(255) DEFAULT NULL,
+  `passwordChanged` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `user_email_idx` (`email`) USING BTREE,
   KEY `username_idx` (`bussinesName`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=104 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;;
+) ENGINE=InnoDB AUTO_INCREMENT=104 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
+
+/*! Tables Update */;
+
+
+CREATE TABLE `team_permissions` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `permission_name` varchar(255) DEFAULT '',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
+CREATE TABLE `team_roles` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `role_title` varchar(255) DEFAULT '',
+  `role_desc` varchar(255) DEFAULT '',
+  `role_permission` varchar(255) DEFAULT '',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 
 
