@@ -46,10 +46,10 @@ include('database/queries.php');
 			$permission = $data->permission;
 
 
-		
+			// Convert the array to a comma-separated string
+			$commaSeparatedPermission = implode(', ', $permission);
 
-				if(createRole($mysqli, $roleTitle, $roleDesc, $permission, $id)){
-
+				if(createRole($mysqli, $roleTitle, $roleDesc, $commaSeparatedPermission, $id)){
 			
 
 					header( 'Content-Type: application/json; charset=utf-8');

@@ -282,7 +282,9 @@ CREATE TABLE `team_roles` (
   `role_title` varchar(255) DEFAULT '',
   `role_desc` varchar(255) DEFAULT '',
   `role_permission` varchar(255) DEFAULT '',
+   `user_id` int DEFAULT NULL,
   PRIMARY KEY (`id`)
+  CONSTRAINT `teamRoles_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 
