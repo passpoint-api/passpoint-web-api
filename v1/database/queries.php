@@ -3203,8 +3203,6 @@ function Update2faStatus($mysqli, $id, $status ){
 
 
 
-
-
 function getPermission($mysqli){
 
 	$query = "SELECT * FROM team_permissions ";
@@ -3293,5 +3291,111 @@ function updatePasswordChangeStatus($mysqli, $status, $id){
 
 }
 
+
+
+
+function createRole($mysqli, $roleTitle, $roleDesc, $commaSeparatedPermission, $id){
+
+    
+
+	$query = "INSERT INTO `team_roles`(`role_title`, `role_desc`, `role_permission`, `user_id`) VALUES(?, ?, ?, ?)";
+
+
+	// Prepare the statement
+	$stmt = $mysqli->prepare($query);
 	
+	if ($stmt) {
+
+		$date = date('d')."-".date('m')."-".date('Y').", ".date('h').":".date('i').date("a");;
+		
+		// Bind the parameters
+		$stmt->bind_param("ssss",  $roleTitle,  $roleDesc, $commaSeparatedPermission, $id);
+	
+		// Execute the statement
+		if ($stmt->execute()) {
+			
+			$mysqli->commit();
+
+			 // echo "Error: " . $stmt->error;
+
+			$stmt->close();
+			// update was successful
+			// You can add your success handling here
+			return true;
+		} else { 
+
+			echo "Error: " . $stmt->error;
+
+			$stmt->close();
+			// Insertion failed
+			// You can add your error handling here
+			return false;
+		}
+	
+		// Close the statement
+	   
+	} else {
+
+		echo "Error: " . $stmt->error;
+
+
+		$stmt->close();
+		// Statement preparation failed
+		// You can add your error handling here
+		return false;
+	}
+		
+
+
+
+}
+
+	
+
+
+function getTeamRole($mysqli, $id){
+
+    $query = "SELECT * FROM `team_roles` WHERE user_id=?";
+    
+    // Prepare the statement
+    $stmt = $mysqli->prepare($query);
+    
+    if ($stmt) {
+        // Bind the parameters
+        $stmt->bind_param("s", $id);
+
+        // Execute the statement
+        if ($stmt->execute()) {
+            // Get the result set as an associative array
+            $result = $stmt->get_result();
+            
+            $teamRoles = array();
+            // Fetch the results
+		while ($row = $result->fetch_assoc()) {
+			// Add each row to the results array
+			$teamRoles[] = $row;
+		}
+
+		$stmt->close();
+		
+		// Return the array of services
+		return $teamRoles;
+
+        } else {
+            // Query execution failed
+            return false;
+        }
+    } else {
+        // Statement preparation failed
+        return false;
+    }
+
+
+}
+
+
+
+
+
+
 ?>
