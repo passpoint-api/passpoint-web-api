@@ -13,7 +13,7 @@ include('database/queries.php');
 
 
 
-if( !isset( $data->password) || !isset( $data->confirm) || !isset( $data->former) ){
+if( !isset( $data->password) || !isset( $data->confirm)  ){
 	
 	 header( 'Content-Type: application/json; charset=utf-8');
 	 header('HTTP/1.0 400 Bad Request');
