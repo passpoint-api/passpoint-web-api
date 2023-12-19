@@ -98,7 +98,7 @@ if( !isset( $data->password) || !isset($data->email) ){
 
 		if($row['userType'] ==INDIVIDUAL_USER or $row['userType'] ==CO_OPERATE_USER){
 
-
+		
 
 			if(password_verify($password, $row['password'])){
 
@@ -115,14 +115,71 @@ if( !isset( $data->password) || !isset($data->email) ){
 
 						//kyc status
 
-					// 	$kyc = getKycDetails($mysqli, $id);
-
-
-					// if($result['p_exists']){ 
+				
 						
 					
 					//1=approved, 2=Rejected, 0=pending, 
-					if($row['kycStatus'] ==1){ $kycStatus = "Approved";}elseif($row['kycStatus'] ==2){ $kycStatus = "Rejected"; }elseif($row['kycStatus'] ==0 and !getKycDetails($mysqli, $row['id'])['p_exists']){ $kycStatus = "Pending"; }elseif($row['kycStatus'] ==0 and getKycDetails($mysqli, $row['id'])['p_exists']){ $kycStatus = "inReview"; }
+					if($row['kycStatus'] ==1){ $kycStatus = "Approved";}elseif($row['kycStatus'] ==2){ $kycStatus = "Rejected"; }elseif($row['kycStatus'] ==0 and !getKycDetails($mysqli, $row['id'])['p_exists']){ $kycStatus = "Pending"; }elseif($row['kycStatus'] ==0 and getKycDetails($mysqli, $row['id'])['p_exists']){
+
+						
+					
+				 
+						//if co-operate user, check the stage of registration.
+						if($row['userType'] == CO_OPERATE_USER){
+
+							$descData = getKycDocs($mysqli, $row['id'])['p_data'];
+
+							$ownership = array();
+							foreach ($descData as $descItem) {
+							
+								$OwnerList = []; // Initialize the descList array for each iteration
+								if($descItem['docType'] =="OWNERSHIP"){
+		
+									$ownerList['id'] = $descItem['id'];
+						
+									// Add the current descList to the desc array
+									$ownership[] =$ownerList;
+								}
+								 
+							}
+
+							if(count($ownership) > 0){
+								//document submitted so in 
+								$kycStatus = "inReview"; 
+							}else{
+								$kycStatus = "SubmissionInProgress"; 
+							}
+							
+
+
+						}elseif($row['userType'] == INDIVIDUAL_USER){
+
+							$r =  getKycDetails($mysqli, $row['id'])['p_data'];
+
+							if($r['addressDocumentType'] !=""){
+								$kycStatus = "inReview"; 
+
+							}else{
+
+								$kycStatus = "SubmissionInProgress"; 
+
+							}
+							
+
+
+						}else{
+
+							//if individual user, check th stage 
+
+							$kycStatus = "Pending"; 
+
+						}
+
+
+
+					
+
+					}
 					
 					// }else{ $kycStatus = false; }	
 

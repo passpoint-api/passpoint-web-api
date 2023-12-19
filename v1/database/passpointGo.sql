@@ -260,6 +260,7 @@ CREATE TABLE `users` (
   `2faSecret` varchar(55) DEFAULT NULL,
   `2faLink` varchar(255) DEFAULT NULL,
   `passwordChanged` tinyint(1) NOT NULL DEFAULT '0',
+  `teamRole` varchar(15) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `user_email_idx` (`email`) USING BTREE,
   KEY `username_idx` (`bussinesName`) USING BTREE
